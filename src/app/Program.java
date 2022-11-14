@@ -4,26 +4,29 @@ import entities.Product;
 import module.services.ProductService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Program {
-    public static int compareProducts(Product p1, Product p2) {
-        return p1.getPrice().compareTo(p2.getPrice());
-    }
     public static void main(String[] args) {
 
-        List<Product> list = new ArrayList<>();
+        List<Integer> list = Arrays.asList(3, 4, 5, 10, 7);
 
-        list.add(new Product("TV", 900.00));
-        list.add(new Product("Mouse", 50.00));
-        list.add(new Product("Tablet", 350.00));
-        list.add(new Product("HD Case", 90.00));
+        Stream<Integer> st1 = list.stream().map(x -> x*10);
+        System.out.println(Arrays.toString(st1.toArray()));
 
-        ProductService ps = new ProductService();
 
-        double sum = ps.filterSum(list, p -> p.getPrice() < 100.0 );
-        System.out.println("Sum = " + String.format("%.2f", sum));
+        Stream<String> st2 = Stream.of("Maria", "Alex", "Bob");
+        System.out.println(Arrays.toString(st2.toArray()));
+
+
+        Stream<Integer> st3 = Stream.iterate(0, x -> x + 2);
+        System.out.println(Arrays.toString(st3.limit(10).toArray()));
+
+        Stream<Long> st4 = Stream.iterate(new Long[] {0L, 1L}, p -> new Long[] {p[1], p[0] + p[1]}).map(p -> p[0]);
+        System.out.println(Arrays.toString(st4.limit(10).toArray()));
 
     }
 }
